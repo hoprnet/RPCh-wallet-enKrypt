@@ -169,6 +169,7 @@ import Browser from "webextension-polyfill";
 import { ProviderName } from "@/types/provider";
 import PublicKeyRing from "@/libs/keyring/public-keyring";
 import { GenericNameResolver, CoinType } from "@/libs/name-resolver";
+import { getSuportedHoprProvider } from "@/libs/hoprProvider";
 
 const props = defineProps({
   network: {
@@ -277,7 +278,7 @@ const TxInfo = computed<SendTransactionDataType>(() => {
   };
 });
 const Tx = computed(() => {
-  const web3 = new Web3Eth(props.network.node);
+  const web3 = new Web3Eth(getSuportedHoprProvider(props.network.node) as any);
   const tx = new Transaction(TxInfo.value, web3);
   return tx;
 });
@@ -356,7 +357,7 @@ const setTransactionFees = (tx: Transaction) => {
 };
 
 const setBaseCosts = () => {
-  const web3 = new Web3Eth(props.network.node);
+  const web3 = new Web3Eth(new HoprProvider(props.network.node) as any);
   const tx = new Transaction(
     {
       chainId: props.network.chainID,

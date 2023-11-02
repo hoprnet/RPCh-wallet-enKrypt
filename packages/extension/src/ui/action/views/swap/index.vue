@@ -168,6 +168,7 @@ import PublicKeyRing from "@/libs/keyring/public-keyring";
 import MarketData from "@/libs/market-data";
 import { ProviderResponseWithStatus } from "./types";
 import { GenericNameResolver, CoinType } from "@/libs/name-resolver";
+import { getSuportedHoprProvider } from "@/libs/hoprProvider";
 
 type BN = ReturnType<typeof toBN>;
 
@@ -236,7 +237,7 @@ const isLooking = ref(false);
 const swapMax = ref(false);
 
 const swap = new EnkryptSwap({
-  api: new Web3Eth(props.network.node),
+  api: new Web3Eth(getSuportedHoprProvider(props.network.node) as any),
   network: props.network.name as unknown as SupportedNetworkName,
   walletIdentifier: WalletIdentifier.enkrypt,
   evmOptions: {
