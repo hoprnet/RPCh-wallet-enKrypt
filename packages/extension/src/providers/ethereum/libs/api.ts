@@ -5,7 +5,7 @@ import Web3Eth from "web3-eth";
 import { numberToHex, toBN } from "web3-utils";
 import { ERC20TokenInfo } from "../types";
 import erc20 from "./abi/erc20";
-import { getSuportedHoprProvider } from "@/libs/hoprProvider";
+import { getSuportedRpchProvider } from "@/libs/hoprProvider";
 
 class API implements ProviderAPIInterface {
   node: string;
@@ -13,7 +13,7 @@ class API implements ProviderAPIInterface {
 
   constructor(node: string) {
     this.node = node;
-    this.web3 = new Web3Eth(getSuportedHoprProvider(this.node) as any);
+    this.web3 = new Web3Eth(getSuportedRpchProvider(this.node) as any);
   }
 
   public get api() {

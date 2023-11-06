@@ -1,6 +1,6 @@
 import EventEmitter from "eventemitter3";
 import { MiddlewareFunction, RPCRequestType } from "@enkryptcom/types";
-import { HoprRpcClient } from "@src/libs/hoprRpcClient";
+import { RPChClient } from "@src/libs/RPChClient";
 import { RequestClass } from "../types";
 import MiddleWare from "./middleware";
 
@@ -11,7 +11,7 @@ class RPCClient extends EventEmitter implements RequestClass {
 
   middleware: MiddleWare;
 
-  client: HoprRpcClient;
+  client: RPChClient;
 
   constructor(url: string, middlewares: MiddlewareFunction[] = []) {
     super();
@@ -20,7 +20,7 @@ class RPCClient extends EventEmitter implements RequestClass {
     middlewares.forEach((mw) => this.middleware.use(mw));
     this.url = url;
 
-    this.client = new HoprRpcClient(url);
+    this.client = new RPChClient(url);
   }
 
   changeNetwork(url: string): void {

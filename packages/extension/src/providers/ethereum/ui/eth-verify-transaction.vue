@@ -156,7 +156,7 @@ import { bigIntToBuffer, bigIntToHex, fromBase } from "@enkryptcom/utils";
 import broadcastTx from "../libs/tx-broadcaster";
 import TokenSigs from "../libs/transaction/lists/tokenSigs";
 import AlertIcon from "@action/icons/send/alert-icon.vue";
-import { getSuportedHoprProvider } from "@/libs/hoprProvider";
+import { getSuportedRpchProvider } from "@/libs/hoprProvider";
 
 const isProcessing = ref(false);
 const isOpenSelectFee = ref(false);
@@ -225,7 +225,7 @@ onBeforeMount(async () => {
       .times(decoded.currentPriceUSD)
       .toFixed(2);
   });
-  const web3 = new Web3Eth(getSuportedHoprProvider(network.value.node) as any);
+  const web3 = new Web3Eth(getSuportedRpchProvider(network.value.node) as any);
   const tx = new Transaction(
     Request.value.params![0] as EthereumTransaction,
     web3

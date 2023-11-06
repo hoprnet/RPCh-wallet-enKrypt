@@ -1,7 +1,7 @@
 import RPChSDK, { type Ops } from "@rpch/sdk";
 import { JSONRPCParams } from "json-rpc-2.0";
 
-export class HoprRpcClient {
+export class RPChClient {
   sdk: RPChSDK;
 
   constructor(provider: string) {
@@ -13,9 +13,9 @@ export class HoprRpcClient {
 
     // TODO: Remove after confirmation and testing
     console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
-    console.log("RPCh: Client ID ", process.env.HOPR_CLIENT);
+    console.log("RPCh: Client ID ", process.env.RPCH_SECRET_TOKEN);
 
-    this.sdk = new RPChSDK(process.env.HOPR_CLIENT, ops);
+    this.sdk = new RPChSDK(process.env.RPCH_SECRET_TOKEN, ops);
   }
 
   request(method: string, params: JSONRPCParams): Promise<unknown> {

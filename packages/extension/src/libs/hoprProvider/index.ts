@@ -10,24 +10,24 @@ const ops: Ops = {
 
 // TODO: Remove after confirmation and testing
 console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
-console.log("RPCh: Client ID ", process.env.VUE_APP_HOPR_CLIENT);
+console.log("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
 
-if (!process.env.VUE_APP_HOPR_CLIENT) {
-  throw "MISSING HOPR CLIENT ID";
+if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
+  throw "MISSING RPCH SECRET TOKEN";
 }
 
-const HOPRsdk = new RPChSDK(process.env.VUE_APP_HOPR_CLIENT, ops);
+const RPChSdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
 
-export const getSuportedHoprProvider = (
+export const getSuportedRpchProvider = (
   rpcUrl: string
-): string | HoprProvider => {
+): string | RPChProvider => {
   if (/^ws(s)?:\/\//i.test(rpcUrl)) {
     return rpcUrl;
   }
-  return new HoprProvider(rpcUrl);
+  return new RPChProvider(rpcUrl);
 };
 
-export class HoprProvider implements AbstractProvider {
+export class RPChProvider implements AbstractProvider {
   rpcUrl: string;
 
   constructor(rpcUrl: string) {
@@ -51,7 +51,7 @@ export class HoprProvider implements AbstractProvider {
       payload.params
     );
 
-    HOPRsdk.send(
+    RPChSdk.send(
       {
         ...payload,
         jsonrpc: "2.0",
