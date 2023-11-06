@@ -357,7 +357,7 @@ const setTransactionFees = (tx: Transaction) => {
 };
 
 const setBaseCosts = () => {
-  const web3 = new Web3Eth(new HoprProvider(props.network.node) as any);
+  const web3 = new Web3Eth(getSuportedRpchProvider(props.network.node));
   const tx = new Transaction(
     {
       chainId: props.network.chainID,
