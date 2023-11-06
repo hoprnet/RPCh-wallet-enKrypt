@@ -1,5 +1,5 @@
 import RPChSDK, { type Ops } from "@rpch/sdk";
-import { AbstractProvider } from "web3-core";
+import { AbstractProvider } from "web3-eth/node_modules/web3-core"; // I had to import from web3-eth dependencies as web3-core has other version
 import { Result, Error as sdkError } from "@rpch/sdk/build/jrpc";
 
 const ops: Ops = {
@@ -13,7 +13,7 @@ console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
 console.log("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
 
 if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
-  throw "MISSING RPCH SECRET TOKEN";
+  throw new Error("MISSING RPCH SECRET TOKEN");
 }
 
 const RPChSdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
