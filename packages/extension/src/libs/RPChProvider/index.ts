@@ -18,7 +18,7 @@ if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
 
 const RPChSdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
 
-export const getSuportedRpchProvider = (
+export const getSupportedRpchProvider = (
   rpcUrl: string
 ): string | RPChProvider => {
   if (/^ws(s)?:\/\//i.test(rpcUrl)) {
@@ -35,7 +35,7 @@ export class RPChProvider implements AbstractProvider {
   }
 
   private isError(jsonRes: Result | sdkError): jsonRes is sdkError {
-    return Boolean("error" in jsonRes);
+    return "error" in jsonRes;
   }
 
   sendAsync(
