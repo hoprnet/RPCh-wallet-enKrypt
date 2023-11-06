@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@enkryptcom/types": "workspace:^",
-    "@rpch/sdk": "^1.2.4",
+    "@rpch/sdk": "1.2.4",
     "eventemitter3": "^5.0.1",
     "isomorphic-ws": "^5.0.0",
     "json-rpc-2.0": "^1.6.0",
