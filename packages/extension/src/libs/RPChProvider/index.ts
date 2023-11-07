@@ -18,7 +18,6 @@ export class RPChProvider implements AbstractProvider {
     const ops: Ops = {
       discoveryPlatformEndpoint:
         process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
-      forceZeroHop: true, //TODO REMOVE IT
       provider: rpcUrl,
     };
 

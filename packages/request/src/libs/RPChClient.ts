@@ -7,7 +7,6 @@ export class RPChClient {
   constructor(provider: string) {
     const ops: Ops = {
       discoveryPlatformEndpoint: process.env.DISCOVERY_PLATFORM_API_ENDPOINT,
-      forceZeroHop: true,
       provider,
     };
 
