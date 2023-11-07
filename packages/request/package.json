@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --env.RPCH_SECRET_TOKEN secret",
     "lint": "prettier --write .",
     "test": "ts-mocha -p tsconfig.json tests/**/*.test.ts"
   },

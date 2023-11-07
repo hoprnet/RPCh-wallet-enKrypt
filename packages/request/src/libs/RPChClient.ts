@@ -1,4 +1,4 @@
-import RPChSDK, { type Ops } from "@rpch/sdk";
+import RPChSDK, { JRPC, type Ops } from "@rpch/sdk";
 import { JSONRPCParams } from "json-rpc-2.0";
 
 export class RPChClient {
@@ -25,10 +25,14 @@ export class RPChClient {
       (this.sdk as any & RPChSDK).ops.provider
     );
     console.log("RPCh: SENDING REQUEST method: ", method, " params: ", params);
-    return this.sdk.send({
-      jsonrpc: "2.0",
-      method,
-      params,
-    });
+
+    return this.sdk
+      .send({
+        jsonrpc: "2.0",
+        method,
+        params,
+      })
+      .then((res) => res.json())
+      .then(({ result }: JRPC.Result) => result);
   }
 }
