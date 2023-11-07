@@ -2,22 +2,6 @@ import RPChSDK, { type Ops } from "@rpch/sdk";
 import { AbstractProvider } from "web3-eth/node_modules/web3-core"; // I had to import from web3-eth dependencies as web3-core has other version
 import { Result, Error as sdkError } from "@rpch/sdk/build/jrpc";
 
-const ops: Ops = {
-  discoveryPlatformEndpoint:
-    process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
-  forceZeroHop: true,
-};
-
-// TODO: Remove after confirmation and testing
-console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
-console.log("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
-
-if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
-  throw new Error("MISSING RPCH SECRET TOKEN");
-}
-
-const RPChSdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
-
 export const getSupportedRpchProvider = (
   rpcUrl: string
 ): string | RPChProvider => {
@@ -28,10 +12,25 @@ export const getSupportedRpchProvider = (
 };
 
 export class RPChProvider implements AbstractProvider {
-  rpcUrl: string;
+  sdk: RPChSDK;
 
   constructor(rpcUrl: string) {
-    this.rpcUrl = rpcUrl;
+    const ops: Ops = {
+      discoveryPlatformEndpoint:
+        process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
+      forceZeroHop: true, //TODO REMOVE IT
+      provider: rpcUrl,
+    };
+
+    // TODO: Remove after confirmation and testing
+    console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
+    console.log("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
+
+    if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
+      throw new Error("MISSING RPCH SECRET TOKEN");
+    }
+
+    this.sdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
   }
 
   private isError(jsonRes: Result | sdkError): jsonRes is sdkError {
@@ -42,22 +41,11 @@ export class RPChProvider implements AbstractProvider {
     payload: Parameters<AbstractProvider["sendAsync"]>[0],
     callback: Parameters<AbstractProvider["sendAsync"]>[1]
   ) {
-    // TODO: Remove after confirmation and testing
-    console.log("RPCh: SENDING REQUEST to: ", this.rpcUrl);
-    console.log(
-      "RPCh: SENDING REQUEST method: ",
-      payload.method,
-      " params: ",
-      payload.params
-    );
-
-    RPChSdk.send(
-      {
+    this.sdk
+      .send({
         ...payload,
         jsonrpc: "2.0",
-      },
-      { provider: this.rpcUrl }
-    )
+      })
       .then(async (res) => {
         const jsonRes: Result | sdkError = await res.json();
         if (this.isError(jsonRes)) {
@@ -67,7 +55,7 @@ export class RPChProvider implements AbstractProvider {
 
         const parsedRes = {
           ...jsonRes,
-          id: +(jsonRes.id || 0),
+          id: jsonRes.id || 0,
         };
         callback?.(null, parsedRes);
       })
