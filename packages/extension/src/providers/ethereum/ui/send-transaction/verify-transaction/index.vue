@@ -106,7 +106,7 @@ import { BaseNetwork } from "@/types/base-network";
 import { bigIntToHex } from "@ethereumjs/util";
 import { toBN } from "web3-utils";
 import { toBase } from "@enkryptcom/utils";
-
+import { getSupportedRpchProvider } from "@/libs/RPChProvider";
 const KeyRing = new PublicKeyRing();
 const route = useRoute();
 const router = useRouter();
@@ -139,7 +139,8 @@ const close = () => {
 
 const sendAction = async () => {
   isProcessing.value = true;
-  const web3 = new Web3Eth(network.value.node);
+
+  const web3 = new Web3Eth(getSupportedRpchProvider(network.value.node));
   const tx = new Transaction(txData.TransactionData, web3);
 
   const txActivity: Activity = {
