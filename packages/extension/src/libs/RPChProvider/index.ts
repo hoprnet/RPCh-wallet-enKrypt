@@ -1,6 +1,5 @@
 import RPChSDK, { type Ops } from "@rpch/sdk";
 import { AbstractProvider } from "web3-eth/node_modules/web3-core"; // I had to import from web3-eth dependencies as web3-core has other version
-import { Result, Error as sdkError } from "@rpch/sdk/build/jrpc";
 
 export const getSupportedRpchProvider = (
   rpcUrl: string
@@ -32,10 +31,6 @@ export class RPChProvider implements AbstractProvider {
     this.sdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
   }
 
-  private isError(jsonRes: Result | sdkError): jsonRes is sdkError {
-    return "error" in jsonRes;
-  }
-
   sendAsync(
     payload: Parameters<AbstractProvider["sendAsync"]>[0],
     callback: Parameters<AbstractProvider["sendAsync"]>[1]
@@ -46,12 +41,7 @@ export class RPChProvider implements AbstractProvider {
         jsonrpc: "2.0",
       })
       .then(async (res) => {
-        const jsonRes: Result | sdkError = await res.json();
-        if (this.isError(jsonRes)) {
-          callback?.({ name: "", ...jsonRes.error });
-          return;
-        }
-
+        const jsonRes = await res.json();
         const parsedRes = {
           ...jsonRes,
           id: jsonRes.id || 0,
