@@ -10,36 +10,35 @@ export const getSupportedRpchProvider = (
   return new RPChProvider(rpcUrl);
 };
 
+if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
+  throw new Error("MISSING RPCH SECRET TOKEN");
+}
+
+const ops: Ops = {
+  discoveryPlatformEndpoint:
+    process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
+};
+const sdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
+
 export class RPChProvider implements AbstractProvider {
-  sdk: RPChSDK;
+  provider: string;
 
   constructor(rpcUrl: string) {
-    const ops: Ops = {
-      discoveryPlatformEndpoint:
-        process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
-      provider: rpcUrl,
-    };
-
-    // TODO: Remove after confirmation and testing
-    console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
-    console.log("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
-
-    if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
-      throw new Error("MISSING RPCH SECRET TOKEN");
-    }
-
-    this.sdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
+    this.provider = rpcUrl;
   }
 
   sendAsync(
     payload: Parameters<AbstractProvider["sendAsync"]>[0],
     callback: Parameters<AbstractProvider["sendAsync"]>[1]
   ) {
-    this.sdk
-      .send({
-        ...payload,
-        jsonrpc: "2.0",
-      })
+    sdk
+      .send(
+        {
+          ...payload,
+          jsonrpc: "2.0",
+        },
+        { provider: this.provider }
+      )
       .then(async (res) => {
         const jsonRes = await res.json();
         const parsedRes = {
