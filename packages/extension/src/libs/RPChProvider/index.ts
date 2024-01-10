@@ -16,6 +16,7 @@ class RPChSDKSingleton {
   static options: Ops = {
     discoveryPlatformEndpoint:
       process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
+    forceZeroHop: true
   };
 
   static send(

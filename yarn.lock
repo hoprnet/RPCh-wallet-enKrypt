@@ -2460,7 +2460,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^15.2.1
     "@rollup/plugin-replace": ^5.0.2
     "@rollup/plugin-typescript": ^11.1.3
-    "@rpch/sdk": ^1.6.0
+    "@rpch/sdk": 1.10.1
     "@types/chrome": ^0.0.245
     "@types/ethereumjs-abi": ^0.6.3
     "@types/events": ^3.0.0
@@ -2651,7 +2651,7 @@ __metadata:
   resolution: "@enkryptcom/request@workspace:packages/request"
   dependencies:
     "@enkryptcom/types": "workspace:^"
-    "@rpch/sdk": ^1.6.0
+    "@rpch/sdk": 1.10.1
     "@types/chai": ^4.3.6
     "@types/mocha": ^10.0.1
     "@types/node": ^20.6.0
@@ -6010,17 +6010,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rpch/sdk@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "@rpch/sdk@npm:1.6.0"
+"@rpch/sdk@npm:1.10.1":
+  version: 1.10.1
+  resolution: "@rpch/sdk@npm:1.10.1"
   dependencies:
     "@rpch/compat-crypto": ^0.8.0
-    async-retry: ^1.3.3
     debug: ^4.3.4
     ethers: ^5.7.2
     isomorphic-ws: ^5.0.0
     lz-string: ^1.5.0
-  checksum: 28c65843c1fa7b10da7133adcdaf9f55bba7c3726f2d0c8218d03e71b651e5b5cd5fdf9970bccbbba087b63ebe72362a0290555b085d8a65bae708d7fbe00d6e
+  checksum: ea9024058b9d61eee733d51e1d6b5a28a61d86e3bff95bd67d4391dbd6e1c9df4a209c7e6257ecd59ad3647f6f8c42016e85de626af250bbd7046dec8b700893
   languageName: node
   linkType: hard
 
@@ -9381,15 +9380,6 @@ __metadata:
   version: 1.0.1
   resolution: "async-limiter@npm:1.0.1"
   checksum: 2b849695b465d93ad44c116220dee29a5aeb63adac16c1088983c339b0de57d76e82533e8e364a93a9f997f28bbfc6a92948cefc120652bd07f3b59f8d75cf2b
-  languageName: node
-  linkType: hard
-
-"async-retry@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "async-retry@npm:1.3.3"
-  dependencies:
-    retry: 0.13.1
-  checksum: 38a7152ff7265a9321ea214b9c69e8224ab1febbdec98efbbde6e562f17ff68405569b796b1c5271f354aef8783665d29953f051f68c1fc45306e61aec82fdc4
   languageName: node
   linkType: hard
 
@@ -20541,17 +20531,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"retry@npm:0.13.1, retry@npm:^0.13.1":
-  version: 0.13.1
-  resolution: "retry@npm:0.13.1"
-  checksum: 47c4d5be674f7c13eee4cfe927345023972197dbbdfba5d3af7e461d13b44de1bfd663bfc80d2f601f8ef3fc8164c16dd99655a221921954a65d044a2fc1233b
-  languageName: node
-  linkType: hard
-
 "retry@npm:^0.12.0":
   version: 0.12.0
   resolution: "retry@npm:0.12.0"
   checksum: 623bd7d2e5119467ba66202d733ec3c2e2e26568074923bc0585b6b99db14f357e79bdedb63cab56cec47491c4a0da7e6021a7465ca6dc4f481d3898fdd3158c
+  languageName: node
+  linkType: hard
+
+"retry@npm:^0.13.1":
+  version: 0.13.1
+  resolution: "retry@npm:0.13.1"
+  checksum: 47c4d5be674f7c13eee4cfe927345023972197dbbdfba5d3af7e461d13b44de1bfd663bfc80d2f601f8ef3fc8164c16dd99655a221921954a65d044a2fc1233b
   languageName: node
   linkType: hard
 
