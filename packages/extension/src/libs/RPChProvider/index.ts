@@ -10,36 +10,54 @@ export const getSupportedRpchProvider = (
   return new RPChProvider(rpcUrl);
 };
 
+class RPChSDKSingleton {
+  static sdk: RPChSDK | undefined;
+
+  static options: Ops = {
+    discoveryPlatformEndpoint:
+      process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
+  };
+
+  static send(
+    ...args: Parameters<RPChSDK["send"]>
+  ): ReturnType<RPChSDK["send"]> {
+    if (!this.sdk) {
+      // TODO: Remove after confirmation and testing
+      console.info("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
+
+      if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
+        console.error("MISSING RPCH SECRET TOKEN");
+        throw new Error("MISSING RPCH SECRET TOKEN");
+      }
+
+      console.info("RPCh: first SEND request, creating SDK instance");
+      this.sdk = new RPChSDK(
+        process.env.VUE_APP_RPCH_SECRET_TOKEN,
+        this.options
+      );
+    }
+    return this.sdk.send(...args);
+  }
+}
+
 export class RPChProvider implements AbstractProvider {
-  sdk: RPChSDK;
+  rpcUrl: string;
 
   constructor(rpcUrl: string) {
-    const ops: Ops = {
-      discoveryPlatformEndpoint:
-        process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
-      provider: rpcUrl,
-    };
-
-    // TODO: Remove after confirmation and testing
-    console.log("RPCh: CREATING SDK INSTANCE with OPS ", ops);
-    console.log("RPCh: Client ID ", process.env.VUE_APP_RPCH_SECRET_TOKEN);
-
-    if (!process.env.VUE_APP_RPCH_SECRET_TOKEN) {
-      throw new Error("MISSING RPCH SECRET TOKEN");
-    }
-
-    this.sdk = new RPChSDK(process.env.VUE_APP_RPCH_SECRET_TOKEN, ops);
+    this.rpcUrl = rpcUrl;
   }
 
   sendAsync(
     payload: Parameters<AbstractProvider["sendAsync"]>[0],
     callback: Parameters<AbstractProvider["sendAsync"]>[1]
   ) {
-    this.sdk
-      .send({
+    RPChSDKSingleton.send(
+      {
         ...payload,
         jsonrpc: "2.0",
-      })
+      },
+      { provider: this.rpcUrl }
+    )
       .then(async (res) => {
         const jsonRes = await res.json();
         const parsedRes = {
