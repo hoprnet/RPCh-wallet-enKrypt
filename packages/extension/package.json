@@ -1,6 +1,6 @@
 {
   "name": "@enkryptcom/extension",
-  "version": "1.37.0",
+  "version": "1.37.1",
   "private": true,
   "scripts": {
     "zip": "cd dist; zip -r release.zip *;",
@@ -36,6 +36,8 @@
     "@metamask/eth-sig-util": "^7.0.1",
     "@rollup/plugin-replace": "^5.0.5",
     "@types/chrome": "^0.0.263",
+    "@rpch/sdk": "^1.11.0",
+    "@types/chrome": "^0.0.262",
     "@types/events": "^3.0.3",
     "@types/less": "^3.0.6",
     "@types/lodash": "^4.17.0",
