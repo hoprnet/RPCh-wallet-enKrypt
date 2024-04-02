@@ -35,7 +35,6 @@
     "@ledgerhq/hw-transport-webusb": "^6.28.5",
     "@metamask/eth-sig-util": "^7.0.1",
     "@rollup/plugin-replace": "^5.0.5",
-    "@types/chrome": "^0.0.263",
     "@rpch/sdk": "^1.11.0",
     "@types/chrome": "^0.0.262",
     "@types/events": "^3.0.3",

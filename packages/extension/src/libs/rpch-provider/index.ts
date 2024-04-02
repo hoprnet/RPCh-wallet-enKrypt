@@ -16,8 +16,6 @@ const DISCOVERY_PLATFORM_API_ENDPOINT = process.env.VUE_APP_DISCOVERY_PLATFORM_A
 
 if (!RPCH_SECRET_TOKEN) {
   throw new Error("MISSING RPCH SECRET TOKEN");
-} else {
-  console.log("RPCH_SECRET_TOKEN", RPCH_SECRET_TOKEN);
 }
 
 const ops: Ops = {
