@@ -178,6 +178,7 @@ import { GenericNameResolver, CoinType } from "@/libs/name-resolver";
 import { NetworkNames } from "@enkryptcom/types";
 import { trackSendEvents } from "@/libs/metrics";
 import { SendEventType } from "@/libs/metrics/types";
+import { getSupportedRpchProvider } from "@/libs/rpch-provider";
 
 const props = defineProps({
   network: {
@@ -328,7 +329,7 @@ const TxInfo = computed<SendTransactionDataType>(() => {
   };
 });
 const Tx = computed(() => {
-  const web3 = new Web3Eth(props.network.node);
+  const web3 = new Web3Eth(getSupportedRpchProvider(props.network.node));
   const tx = new Transaction(TxInfo.value, web3);
   return tx;
 });
@@ -430,7 +431,7 @@ const setTransactionFees = (tx: Transaction) => {
 };
 
 const setBaseCosts = () => {
-  const web3 = new Web3Eth(props.network.node);
+  const web3 = new Web3Eth(getSupportedRpchProvider(props.network.node));
   const tx = new Transaction(
     {
       chainId: props.network.chainID,

@@ -15,7 +15,7 @@ const gnoOptions: EvmNetworkOptions = {
   isTestNetwork: false,
   currencyName: "DAI",
   currencyNameLong: "DAI",
-  node: "https://rpc.gnosischain.com",
+  node: "https://derp.hoprnet.org/rpc/xdai/mainnet",
   icon: require("./icons/gno.svg"),
   coingeckoID: "dai",
   coingeckoPlatform: CoingeckoPlatform.Gnosis,

@@ -15,7 +15,7 @@ const ethOptions: EvmNetworkOptions = {
   isTestNetwork: false,
   currencyName: "ETH",
   currencyNameLong: "Ethereum",
-  node: "wss://nodes.mewapi.io/ws/eth",
+  node: "https://derp.hoprnet.org/rpc/eth/mainnet",
   icon: require("./icons/eth.svg"),
   coingeckoID: "ethereum",
   coingeckoPlatform: CoingeckoPlatform.Ethereum,
