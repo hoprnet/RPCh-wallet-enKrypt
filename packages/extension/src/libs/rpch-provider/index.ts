@@ -1,6 +1,7 @@
 /* eslint-disable */
 import RPChSDK, { type Ops } from "@rpch/sdk";
 import { AbstractProvider } from "web3-eth/node_modules/web3-core"; // Import from web3-eth dependencies as web3-core uses other version
+import { v4 as uuidv4 } from "uuid";
 
 export const getSupportedRpchProvider = (
   rpcUrl: string
@@ -13,6 +14,7 @@ export const getSupportedRpchProvider = (
 
 const RPCH_SECRET_TOKEN = process.env.VUE_APP_RPCH_SECRET_TOKEN;
 const DISCOVERY_PLATFORM_API_ENDPOINT = process.env.VUE_APP_DISCOVERY_PLATFORM_API_ENDPOINT;
+const FORCE_ZERO_HOP = true; // TODO: Change to false after integration for better privacy
 
 if (!RPCH_SECRET_TOKEN) {
   throw new Error("MISSING RPCH SECRET TOKEN");
@@ -20,7 +22,7 @@ if (!RPCH_SECRET_TOKEN) {
 
 const ops: Ops = {
   discoveryPlatformEndpoint: DISCOVERY_PLATFORM_API_ENDPOINT || undefined,
-  forceZeroHop: true,
+  forceZeroHop: FORCE_ZERO_HOP,
 };
 
 class RPChSDKSingleton {
@@ -61,6 +63,10 @@ export class RPChProvider implements AbstractProvider {
     payload: Parameters<AbstractProvider["sendAsync"]>[0],
     callback: Parameters<AbstractProvider["sendAsync"]>[1]
   ) {
+
+    if(!payload.id) {
+      payload.id = uuidv4();
+    }
     RPChSDKSingleton.send(
       {
         ...payload,

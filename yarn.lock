@@ -2521,7 +2521,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^15.2.3
     "@rollup/plugin-replace": ^5.0.5
     "@rollup/plugin-typescript": ^11.1.6
-    "@rpch/sdk": ^1.11.0
+    "@rpch/sdk": ^1.11.1
     "@types/chrome": ^0.0.262
     "@types/ethereumjs-abi": ^0.6.5
     "@types/events": ^3.0.3
@@ -2713,6 +2713,7 @@ __metadata:
   resolution: "@enkryptcom/request@workspace:packages/request"
   dependencies:
     "@enkryptcom/types": "workspace:^"
+    "@rpch/sdk": ^1.11.1
     "@types/chai": ^4.3.14
     "@types/mocha": ^10.0.6
     "@types/node": ^20.11.30
@@ -6834,16 +6835,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rpch/sdk@npm:^1.11.0":
-  version: 1.11.0
-  resolution: "@rpch/sdk@npm:1.11.0"
+"@rpch/sdk@npm:^1.11.1":
+  version: 1.11.1
+  resolution: "@rpch/sdk@npm:1.11.1"
   dependencies:
     "@rpch/compat-crypto": ^0.8.0
     debug: ^4.3.4
     ethers: ^5.7.2
     isomorphic-ws: ^5.0.0
     lz-string: ^1.5.0
-  checksum: dd7f1e6793579f68c4d48a65a9e78a6c1c353111847112c8de2d174ac5c4c2e808a59205ea13f2b96c60cf5a72c0ebafa07a726dd89c7276d829cd016cdc3d42
+  checksum: 358d87b1ec01fbbf02f9dd57d658bc6335b7a3a7a5b2aad699f38a143d9ccbb4fbaff61829084b24ff2f5d3b00358c698d16ec2f02b7d7dd9e2532946a8f3fdd
   languageName: node
   linkType: hard
 
