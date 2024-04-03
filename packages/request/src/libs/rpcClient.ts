@@ -24,12 +24,12 @@ class RPCClient extends EventEmitter implements RequestClass {
 
   changeNetwork(url: string): void {
     this.url = url;
+    this.client = new RPChProvider(url);
   }
 
   request(req: RPCRequestType): Promise<any> {
     if (!req.method)
       return Promise.reject(new Error("RPC call must provide a method"));
-    console.log('req', req);
     return new Promise((resolve, reject) => {
       const callback = (error, result) => {
         if (error) return reject(error);
